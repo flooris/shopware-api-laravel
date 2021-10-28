@@ -3,7 +3,7 @@
     "description": "Laravel PHP package for consuming the Shopware Admin API.",
     "type": "library",
     "require": {
-        "vin-sw/shopware-sdk": "^1.3"
+        "vin-sw/shopware-sdk": "dev-master"
     },
     "license": "GPL-3.0-or-later",
     "autoload": {

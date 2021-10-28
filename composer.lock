@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b02f7068ff764c132e008d795143988",
+    "content-hash": "588313a420e1454e252c991a970e78bc",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -602,16 +602,16 @@
         },
         {
             "name": "vin-sw/shopware-sdk",
-            "version": "1.3.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vienthuong/shopware-php-sdk.git",
-                "reference": "d89f388b132e8cd1484c54f6f12c9a217fb6543e"
+                "reference": "349c0242583f70a55d0881955ee37da93ec5de75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vienthuong/shopware-php-sdk/zipball/d89f388b132e8cd1484c54f6f12c9a217fb6543e",
-                "reference": "d89f388b132e8cd1484c54f6f12c9a217fb6543e",
+                "url": "https://api.github.com/repos/vienthuong/shopware-php-sdk/zipball/349c0242583f70a55d0881955ee37da93ec5de75",
+                "reference": "349c0242583f70a55d0881955ee37da93ec5de75",
                 "shasum": ""
             },
             "require": {
@@ -627,6 +627,7 @@
                 "symplify/config-transformer": "^9.3",
                 "symplify/easy-coding-standard": "9.3.20"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -646,15 +647,17 @@
             "description": "A PHP SDK for Shopware 6 Platform",
             "support": {
                 "issues": "https://github.com/vienthuong/shopware-php-sdk/issues",
-                "source": "https://github.com/vienthuong/shopware-php-sdk/tree/1.3.2"
+                "source": "https://github.com/vienthuong/shopware-php-sdk/tree/master"
             },
-            "time": "2021-10-19T10:13:46+00:00"
+            "time": "2021-10-28T07:31:21+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "vin-sw/shopware-sdk": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
