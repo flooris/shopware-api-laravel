@@ -3,28 +3,28 @@
 namespace Flooris\ShopwareApi;
 
 use Vin\ShopwareSdk\Data\Defaults as ShopwareSdkDefaults;
-use Illuminate\Support\Facades\Cache;
 use Vin\ShopwareSdk\Data\AccessToken as ShopwareSdkAccessToken;
 use Vin\ShopwareSdk\Client\AdminAuthenticator;
 use Vin\ShopwareSdk\Data\Context as ShopwareSdkContext;
+use Illuminate\Support\Facades\Cache;
 
 class ShopwareInstance
 {
+    public string $cacheKeyAccessToken;
+
     public function __construct(
         public string              $name,
         private AdminAuthenticator $adminClient,
     )
     {
-        $this->cacheKeyAccessToken = "SHOPWARE_API_TOKEN_{$name}";
+        $this->cacheKeyAccessToken = "SHOPWARE_ACCESS_TOKEN_{$this->name}";
     }
 
     public function getContext(string $languageId = ShopwareSdkDefaults::LANGUAGE_SYSTEM): ShopwareSdkContext
     {
-        $accessToken = $this->adminClient->fetchAccessToken();
-
         return new ShopwareSdkContext(
             apiEndpoint: $this->getHostname(),
-            accessToken: $accessToken,
+            accessToken: $this->getAccessToken(),
             languageId: $languageId
         );
     }
@@ -36,7 +36,7 @@ class ShopwareInstance
 
     public function getAccessToken(): ShopwareSdkAccessToken
     {
-        $cacheKey = $this->getCacheKeyAccessToken();
+        $cacheKey = $this->cacheKeyAccessToken;
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
@@ -44,14 +44,16 @@ class ShopwareInstance
 
         $accessToken = $this->adminClient->fetchAccessToken();
 
-        $timeToLiveSecondsSubstract = 60;
-        $timeToLiveSeconds          = $accessToken->expiresIn - $timeToLiveSecondsSubstract;
+        $timeToLiveSecondsSubtract = 60;
+        $timeToLiveSeconds         = $accessToken->expiresIn - $timeToLiveSecondsSubtract;
 
         Cache::set($cacheKey, $accessToken, $timeToLiveSeconds);
+
+        return $accessToken;
     }
 
-    private function getCacheKeyAccessToken(): string
+    public function isAccessTokenExpired(): bool
     {
-        return "SHOPWARE_ACCESS_TOKEN_{$this->name}";
+        return ! Cache::has($this->cacheKeyAccessToken);
     }
 }
